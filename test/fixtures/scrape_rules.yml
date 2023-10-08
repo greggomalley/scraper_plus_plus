@@ -1,0 +1,4 @@
+scrape_rule_one:
+  xpath: '//*[@id="main-content"]//ul[1]//li//p[contains(@class, "PromoHeadline")]/span'
+  key: 'headline'
+  scrape_rule_group: scrape_rule_group_one

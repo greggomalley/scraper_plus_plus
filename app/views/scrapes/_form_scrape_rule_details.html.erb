@@ -1,0 +1,18 @@
+<div class="grid grid-cols-1 gap-x-8 pt-10 gap-y-8 md:grid-cols-3">
+  <div class="px-4 sm:px-0">
+    <h2 class="text-base font-semibold leading-7 text-gray-900">Scrape Rules</h2>
+    <p class="mt-1 text-sm leading-6 text-gray-600">Specify XPath commands to parse out data that is required</p>
+  </div>
+
+  <div class="md:col-span-2 flex items-center justify-end">
+    <%= render "scrape_rule", form: form, scrape: @scrape %>
+
+    <button data-action="click->scrape#addScrapeRule"
+            class="add-scrape-rule rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add
+      Scrape Rule
+    </button>
+  </div>
+
+  <div id="scrapeRules"  class="md:col-start-2 md:col-end-4">
+  </div>
+</div>

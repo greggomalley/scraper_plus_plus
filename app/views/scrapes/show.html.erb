@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @scrape %>
+
+<div>
+  <%= link_to "Edit this scrape", edit_scrape_path(@scrape) %> |
+  <%= link_to "Back to scrapes", scrapes_path %>
+
+  <%= button_to "Destroy this scrape", @scrape, method: :delete %>
+</div>

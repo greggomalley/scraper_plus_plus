@@ -1,0 +1,3 @@
+schedule_one:
+  name: "Every hour"
+  cron: "0 * * * *"

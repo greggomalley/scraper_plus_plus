@@ -1,0 +1,29 @@
+<div id="<%= dom_id scrape %>" class="min-w-0 p-2">
+  <div class="flex items-start gap-x-3">
+    <p class="text-sm font-semibold leading-6 text-gray-900"><%= scrape.name %></p>
+    <p class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"><%= scrape.status %></p>
+  </div>
+  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+    <p class="whitespace-nowrap">
+      <% if scrape.last_synced_at.present? %>
+        Last scrape
+        <time datetime="<%= scrape.last_synced_at %>">
+          <% time_ago_in_words(scrape.last_synced_at) %>>
+        </time>
+      <% else %>
+        Never scraped
+      <% end %>
+    </p>
+    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+      <circle cx="1" cy="1" r="1"/>
+    </svg>
+    <p class="truncate">Created by User McUsername</p>
+  </div>
+</div>
+<div class="flex flex-none items-center gap-x-4">
+  <a href="#" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
+    View Scrape Details<span class="sr-only">, <%= scrape.name %></span></a>
+  <div class="relative flex-none">
+
+  </div>
+</div>

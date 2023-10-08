@@ -1,0 +1,26 @@
+<div data-controller="scrape" class="mx-auto max-w-7xl py-6 sm:px-6 sm:py-8 lg:px-8 rounded-xl ring-1 ring-slate-900/10">
+  <%= form_with(model: scrape) do |form| %>
+    <% if scrape.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(scrape.errors.count, "error") %> prohibited this scrape from being saved:</h2>
+
+        <ul>
+          <% scrape.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-10 divide-y divide-gray-900/10">
+      <%= render "form_basic_scrape_details", form: form, scrape: @scrape %>
+
+      <%= render "form_scrape_rule_details", form: form, scrape: @scrape %>
+
+      <div class="mt-6 flex items-center justify-end gap-x-6 pt-6">
+        <%= form.submit :class => "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

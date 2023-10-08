@@ -1,0 +1,53 @@
+<template id="scrapeRuleTemplate">
+  <%= form.fields_for :scrape_rule_groups do |group_form| %>
+    <%= group_form.fields_for :scrape_rules do |rule_form| %>
+      <div class="scrapeRule bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        <div class="px-4 py-6 sm:p-8">
+          <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-4">
+              <%= rule_form.label :name, "Name", class: "block text-sm font-medium leading-6 text-gray-900" %>
+              <div class="mt-2">
+                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <%= rule_form.text_field :name, class: "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", placeholder: "Name of the rule" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= rule_form.label :xpath, "XPath", class: "block text-sm font-medium leading-6 text-gray-900" %>
+              <div class="mt-2">
+                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <%= rule_form.text_field :xpath, class: "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", placeholder: "XPath selector to the data to scrape" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-4">
+              <%= rule_form.label :key, "Key", class: "block text-sm font-medium leading-6 text-gray-900" %>
+              <div class="mt-2">
+                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <%= rule_form.text_field :key, class: "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", placeholder: "Key to store the data against" %>
+                </div>
+              </div>
+            </div>
+
+<!--            Assume for now that there is no parent we can implement this later. Let's just get the basics working first.-->
+<!--            <div class="sm:col-span-4">-->
+<!--              <div>-->
+<!--                <label for="scrape" class="block text-sm font-medium leading-6 text-gray-900">Parent Rule</label>-->
+                <%#= rule_form.text_field :parent, class: "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6", placeholder: "Name of the parent rule" %>
+<!--              </div>-->
+<!--            </div>-->
+
+<!--            <div class="sm:col-span-4">-->
+<!--              <button data-action="click->scrape#deleteScrapeRule"-->
+<!--                      class="deleteScrapeRule rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">-->
+<!--                Delete Rule-->
+<!--              </button>-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</template>

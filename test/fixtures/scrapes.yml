@@ -1,0 +1,4 @@
+scrape_one:
+  name: "scrape_one"
+  url: "https://example.com"
+  schedule: schedule_one
