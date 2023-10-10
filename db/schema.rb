@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_07_143225) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_09_012858) do
   create_table "schedules", force: :cascade do |t|
     t.text "name"
     t.text "cron"
@@ -18,20 +18,41 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_07_143225) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "scrape_rule_groups", force: :cascade do |t|
+  create_table "scrape_results", force: :cascade do |t|
     t.integer "scrape_id", null: false
+    t.json "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["scrape_id"], name: "index_scrape_rule_groups_on_scrape_id"
+    t.index ["scrape_id"], name: "index_scrape_results_on_scrape_id"
   end
 
   create_table "scrape_rules", force: :cascade do |t|
+    t.text "name", null: false
     t.text "xpath"
     t.text "key"
-    t.integer "scrape_rule_group_id", null: false
+    t.integer "scrape_type"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["scrape_rule_group_id"], name: "index_scrape_rules_on_scrape_rule_group_id"
+    t.index ["name"], name: "index_scrape_rules_on_name"
+    t.index ["parent_id"], name: "index_scrape_rules_on_parent_id"
+  end
+
+  create_table "scrape_rules_scrapes", id: false, force: :cascade do |t|
+    t.integer "scrape_id", null: false
+    t.integer "scrape_rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scrape_id", "scrape_rule_id"], name: "index_scrape_rules_scrapes_on_scrape_id_and_scrape_rule_id"
+    t.index ["scrape_rule_id", "scrape_id"], name: "index_scrape_rules_scrapes_on_scrape_rule_id_and_scrape_id"
+  end
+
+  create_table "scrape_stores", force: :cascade do |t|
+    t.text "content"
+    t.integer "scrape_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scrape_id"], name: "index_scrape_stores_on_scrape_id"
   end
 
   create_table "scrapes", force: :cascade do |t|
@@ -48,7 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_07_143225) do
     t.index ["schedule_id"], name: "index_scrapes_on_schedule_id"
   end
 
-  add_foreign_key "scrape_rule_groups", "scrapes", on_delete: :cascade
-  add_foreign_key "scrape_rules", "scrape_rule_groups", on_delete: :cascade
+  add_foreign_key "scrape_results", "scrapes", on_delete: :cascade
+  add_foreign_key "scrape_rules", "scrape_rules", column: "parent_id"
+  add_foreign_key "scrape_stores", "scrapes"
   add_foreign_key "scrapes", "schedules", on_delete: :cascade
 end

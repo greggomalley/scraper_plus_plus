@@ -1,0 +1,12 @@
+<div id="<%= dom_id scrape_rule %>" class="min-w-0 p-2">
+  <div class="flex items-start gap-x-3">
+    <p class="text-sm font-semibold leading-6 text-gray-900"><%= scrape_rule.name %></p>
+  </div>
+  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+    <p class="truncate">Created by User McUsername</p>
+  </div>
+</div>
+<div class="flex flex-none items-center gap-x-4">
+  <%= link_to "Edit Scrape Rule", edit_scrape_rule_path(scrape_rule), class: "hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block" %>
+  <%= link_to "View Scrape Rule", scrape_rule, class: "mr-2 hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block" %>
+</div>

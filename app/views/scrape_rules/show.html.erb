@@ -1,0 +1,21 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <%= render @scrape_rule %>
+
+    <div class="mt-2">
+
+      <%= link_to 'Back to scrape rules', scrape_rules_path,
+                  :class => "relative inline-flex items-center rounded-md bg-grey-100 ring-1 ring-gray-300 px-3 py-2 text-sm font-semibold text-grey-800 shadow-sm hover:bg-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300" %>
+
+      <div class="inline-block ml-2">
+      <%= button_to 'Delete this scrape rule', scrape_rule_path(@scrape_rule), method: :delete,
+                    class: "rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" %>
+    </div>
+  </div>
+  </div>
+
+</div>

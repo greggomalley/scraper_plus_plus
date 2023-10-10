@@ -5,4 +5,8 @@
 import { application } from "./application"
 
 import ScrapeController from "./scrape_controller"
+import ScrapeResultController from "./scrape_result_controller"
+
 application.register("scrape", ScrapeController)
+application.register("scrape_result", ScrapeResultController)
+

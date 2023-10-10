@@ -1,29 +1,58 @@
-<div id="<%= dom_id scrape %>" class="min-w-0 p-2">
-  <div class="flex items-start gap-x-3">
-    <p class="text-sm font-semibold leading-6 text-gray-900"><%= scrape.name %></p>
-    <p class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"><%= scrape.status %></p>
-  </div>
-  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-    <p class="whitespace-nowrap">
-      <% if scrape.last_synced_at.present? %>
-        Last scrape
-        <time datetime="<%= scrape.last_synced_at %>">
-          <% time_ago_in_words(scrape.last_synced_at) %>>
-        </time>
-      <% else %>
-        Never scraped
-      <% end %>
-    </p>
-    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
-      <circle cx="1" cy="1" r="1"/>
-    </svg>
-    <p class="truncate">Created by User McUsername</p>
-  </div>
-</div>
-<div class="flex flex-none items-center gap-x-4">
-  <a href="#" class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
-    View Scrape Details<span class="sr-only">, <%= scrape.name %></span></a>
-  <div class="relative flex-none">
+<main class="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:py-20 rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+  <div class="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none p-4">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900">Scrape</h2>
 
+      <dl class="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Name</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= scrape.name %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">URL</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= scrape.url %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Schedule</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= scrape.schedule.name %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Status</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= scrape.status %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Last Sync</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= custom_time_format(scrape.last_synced_at, 'Never scraped') %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Created</dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <div class="text-gray-900"><%= custom_time_format(scrape.created_at) %></div>
+          </dd>
+        </div>
+        <div class="pt-6 sm:flex">
+          <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+            Scrape Rules
+          </dt>
+          <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+            <% scrape.scrape_rules.each do |rule| %>
+              <span class="mr-2 inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
+                <%= rule.name %>
+              </span>
+            <% end %>
+          </dd>
+        </div>
+      </dl>
+    </div>
   </div>
-</div>
+</main>

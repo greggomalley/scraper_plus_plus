@@ -1,0 +1,3 @@
+scrape_rule_1_scrape_1:
+  scrape_rule: scrape_rules_1
+  scrape: scrape_1

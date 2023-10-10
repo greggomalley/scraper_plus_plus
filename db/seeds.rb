@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+Schedule.create_or_find_by!(name: "Ad Hoc", cron: nil)
 Schedule.create_or_find_by!(name: "Every hour", cron: '0 * * * *')
 Schedule.create_or_find_by!(name: "Every 2 hours", cron: '0 */2 * * *')
 Schedule.create_or_find_by!(name: "Every 6 hours", cron: '0 */6 * * *')

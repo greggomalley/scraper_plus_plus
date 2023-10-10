@@ -19,26 +19,17 @@ class ScrapeTest < ActiveSupport::TestCase
     assert_includes scrape.errors.full_messages, "Schedule can't be blank"
   end
 
-  test "a scrape is invalid without a scrape rule group" do
-    scrape = Scrape.new
-    refute scrape.valid?
-    assert_includes scrape.errors.full_messages, "Scrape rule groups can't be blank"
-  end
-
   test "a scrape is valid with a url, name, format, schedule, and scrape rule group" do
-    scrape_rule_group = ScrapeRuleGroup.new
-    ScrapeRule.new(
-      xpath: "//div[@class='example']",
-      key: "Example",
-      scrape_rule_group: scrape_rule_group
-    )
 
     scrape = Scrape.new(
       url: "https://www.example.com",
       name: "Example",
       format: "text",
       schedule: schedules(:schedule_one),
-      scrape_rule_groups: [scrape_rule_group]
+    )
+    scrape.scrape_rules << ScrapeRule.new(
+      xpath: "//div[@class='example']",
+      key: "Example",
     )
     assert scrape.valid?
   end
@@ -107,33 +98,31 @@ class ScrapeTest < ActiveSupport::TestCase
     assert_equal "pending", scrape.status
   end
 
-  test "a scrape can have many scrape rule groups" do
-    scrape = Scrape.new
-    scrape_rule_group_1 = ScrapeRuleGroup.new
-    scrape_rule_group_2 = ScrapeRuleGroup.new
-    scrape.scrape_rule_groups << scrape_rule_group_1 << scrape_rule_group_2
-    assert scrape.scrape_rule_groups.include?(scrape_rule_group_1)
-    assert scrape.scrape_rule_groups.include?(scrape_rule_group_2)
-  end
-
-  test "a scrape can have many scrape rules through scrape rule groups" do
+  test "a scrape can have many scrape rules" do
     scrape = Scrape.new
     scrape_rule_group = ScrapeRuleGroup.new
     scrape_rule_1 = ScrapeRule.new
     scrape_rule_2 = ScrapeRule.new
     scrape_rule_group.scrape_rules << scrape_rule_1 << scrape_rule_2
-    scrape.scrape_rule_groups << scrape_rule_group
     assert scrape.scrape_rules.include?(scrape_rule_1)
     assert scrape.scrape_rules.include?(scrape_rule_2)
   end
 
-  test "a scrape nested attributes for scrape rule groups can be destroyed" do
-    scrape = Scrape.new
-    scrape_rule_group = ScrapeRuleGroup.new
-    scrape.scrape_rule_groups << scrape_rule_group
-    scrape.save
-    assert scrape.scrape_rule_groups.include?(scrape_rule_group)
-    scrape.update(scrape_rule_groups_attributes: [{ id: scrape_rule_group.id, _destroy: true }])
-    refute scrape.scrape_rule_groups.include?(scrape_rule_group)
+  test "latest scrape result returns the most recent scrape result" do
+    scrape = scrapes(:scrape_one)
+    scrape_result = scrape.scrape_results.create
+    assert_equal scrape_result, scrape.latest_scrape_result
+  end
+
+  test "latest scrape result returns nil if there are no scrape results" do
+    scrape = scrapes(:scrape_one)
+    assert_nil scrape.latest_scrape_result
+  end
+
+  test "latest scrape result returns the most recent scrape result when there is more than one result" do
+    scrape = scrapes(:scrape_one)
+    scrape_result_1 = scrape.scrape_results.create
+    scrape_result_2 = scrape.scrape_results.create
+    assert_equal scrape_result_2, scrape.latest_scrape_result
   end
 end

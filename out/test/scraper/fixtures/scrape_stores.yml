@@ -1,0 +1,3 @@
+store_one:
+  content: <!doctype html><html><head><title>Example Domain</title></head><body><div id="main-content"><ul><li><p class="PromoHeadline"><span>Headline 1</span></p></li><li><p class="PromoHeadline"><span>Headline 2</span></p></li></ul></div></body></html>
+  scrape: scrape_one
